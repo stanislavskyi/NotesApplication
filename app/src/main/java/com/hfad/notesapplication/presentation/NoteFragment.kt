@@ -27,10 +27,10 @@ class NoteFragment : Fragment() {
     private var screenMode: String = MODE_UNKNOWN
     private var noteId: Int = Note.UNDEFINED_ID
 
-    private lateinit var tilName: TextInputLayout
-    private lateinit var tilCount: TextInputLayout
-    private lateinit var etName: EditText
-    private lateinit var etCount: EditText
+    private lateinit var tilTitle: TextInputLayout
+    private lateinit var tilDescription: TextInputLayout
+    private lateinit var etTitle: EditText
+    private lateinit var etDescription: EditText
     private lateinit var buttonSave: FloatingActionButton
 
     override fun onAttach(context: Context) {
@@ -82,11 +82,11 @@ class NoteFragment : Fragment() {
     private fun launchEditMode() {
         viewModel.getNoteById(noteId)
         viewModel.note.observe(viewLifecycleOwner) {
-            etName.setText(it.title)
-            etCount.setText(it.description)
+            etTitle.setText(it.title)
+            etDescription.setText(it.description)
         }
         buttonSave.setOnClickListener {
-            viewModel.editNote(etName.text?.toString(), etCount.text?.toString())
+            viewModel.editNote(etTitle.text?.toString(), etDescription.text?.toString())
         }
 
 
@@ -94,7 +94,7 @@ class NoteFragment : Fragment() {
 
     private fun launchAddMode() {
         buttonSave.setOnClickListener {
-            viewModel.addNote(etName.text?.toString(), etCount.text?.toString())
+            viewModel.addNote(etTitle.text?.toString(), etDescription.text?.toString())
         }
     }
 
@@ -102,20 +102,20 @@ class NoteFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.errorInputCount.observe(viewLifecycleOwner) {
             val message = if (it) {
-                getString(R.string.error_input_count)
+                getString(R.string.error_input_description)
             } else {
                 null
             }
-            tilCount.error = message
+            tilDescription.error = message
         }
 
         viewModel.errorInputName.observe(viewLifecycleOwner) {
             val message = if (it) {
-                getString(R.string.error_input_name)
+                getString(R.string.error_input_title)
             } else {
                 null
             }
-            tilName.error = message
+            tilTitle.error = message
         }
 
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
@@ -127,7 +127,7 @@ class NoteFragment : Fragment() {
     }
 
     private fun addTextChangeListeners() {
-        etName.addTextChangedListener(object : TextWatcher {
+        etTitle.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -143,7 +143,7 @@ class NoteFragment : Fragment() {
 
         })
 
-        etCount.addTextChangedListener(object : TextWatcher {
+        etDescription.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -160,10 +160,10 @@ class NoteFragment : Fragment() {
     }
 
     private fun initViews(view: View) {
-        tilName = view.findViewById(R.id.til_name)
-        tilCount = view.findViewById(R.id.til_count)
-        etName = view.findViewById(R.id.et_name)
-        etCount = view.findViewById(R.id.et_count)
+        tilTitle = view.findViewById(R.id.til_title)
+        tilDescription = view.findViewById(R.id.til_description)
+        etTitle = view.findViewById(R.id.et_title)
+        etDescription = view.findViewById(R.id.et_description)
         buttonSave = view.findViewById(R.id.save_button)
     }
 

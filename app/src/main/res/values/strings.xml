@@ -4,7 +4,7 @@
     <string name="description_hint">description..</string>
     <string name="save_btn">save note\n</string>
     <string name="add_shop_item_content_description">Add new note</string>
-    <string name="error_input_name">Invalid title</string>
-    <string name="error_input_count">Invalid description</string>
+    <string name="error_input_title">Invalid title</string>
+    <string name="error_input_description">Invalid description</string>
     <string name="add_new_shop_item">Add note</string>
 </resources>
