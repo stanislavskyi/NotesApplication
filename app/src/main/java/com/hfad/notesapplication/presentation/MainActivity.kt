@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity(), NoteFragment.OnEditingFinishedListener
 
     private fun setupRecyclerViewNotes(){
         recyclerViewNotes = findViewById(R.id.recyclerViewNotes)
-        recyclerViewNotes.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        recyclerViewNotes.layoutManager = LinearLayoutManager(this)
         noteAdapter = NoteAdapter(this@MainActivity)
         recyclerViewNotes.adapter = noteAdapter
         setupSwipeListener(recyclerViewNotes)

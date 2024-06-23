@@ -79,4 +79,6 @@ dependencies {
     val arch_version = "2.8.0"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_version")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$arch_version")
+
+    implementation("com.squareup.picasso:picasso:2.8")
 }

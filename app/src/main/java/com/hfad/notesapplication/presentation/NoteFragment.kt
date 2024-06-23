@@ -1,7 +1,10 @@
 package com.hfad.notesapplication.presentation
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -32,6 +35,8 @@ class NoteFragment : Fragment() {
     private lateinit var etTitle: EditText
     private lateinit var etDescription: EditText
     private lateinit var buttonSave: FloatingActionButton
+
+    private lateinit var floatingActionButtonAddMathModel: FloatingActionButton
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -70,6 +75,24 @@ class NoteFragment : Fragment() {
         addTextChangeListeners()
         launchRightMode()
         observeViewModel()
+
+        floatingActionButtonAddMathModel.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, REQUEST_IMAGE_PICK)
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
+            val selectedImageUri = data?.data ?: throw IllegalStateException("Image URI is null")
+            //viewModel.mathModelLiveData.value = selectedImageUri.toString()
+
+            Log.d("MATH MODEL 1", selectedImageUri.toString() )
+            // Теперь у вас есть URI выбранного изображения, который вы можете использовать дальше.
+            // Например, вы можете загрузить его с помощью библиотеки Picasso или Glide.
+        }
     }
 
     private fun launchRightMode() {
@@ -165,6 +188,7 @@ class NoteFragment : Fragment() {
         etTitle = view.findViewById(R.id.et_title)
         etDescription = view.findViewById(R.id.et_description)
         buttonSave = view.findViewById(R.id.save_button)
+        floatingActionButtonAddMathModel = view.findViewById(R.id.floatingActionButtonAddMathModel)
     }
 
     private fun parseParams() {
@@ -198,6 +222,7 @@ class NoteFragment : Fragment() {
         private const val MODE_EDIT = "mode_edit"
         private const val MODE_ADD = "mode_add"
         private const val MODE_UNKNOWN = ""
+        private const val REQUEST_IMAGE_PICK = 1
 
         fun newInstanceAddNote(): NoteFragment {
             return NoteFragment().apply {
