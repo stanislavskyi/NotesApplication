@@ -1,5 +1,6 @@
 package com.hfad.notesapplication.presentation
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,6 +26,8 @@ class MainViewModel @Inject constructor(
 ) : ViewModel(){
 
     val notes = getNotesUseCase() //.asLiveData()
+
+    val mathModelLiveData = MutableLiveData<Uri>()
 
     fun deleteNote(note: Note){
         viewModelScope.launch(Dispatchers.IO){
@@ -61,7 +64,8 @@ class MainViewModel @Inject constructor(
         val count = parseDescription(inputCount)
         val fieldsValid = validateInput(name, count)
         if (fieldsValid) {
-            val note = Note(0,name, count)
+            val note = Note(0,name, count,
+                mathModelUri = mathModelLiveData.value.toString())
             viewModelScope.launch(Dispatchers.IO){
                 addNoteUseCase(note)
                 withContext(Dispatchers.Main) {

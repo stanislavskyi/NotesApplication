@@ -87,7 +87,7 @@ class NoteFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
             val selectedImageUri = data?.data ?: throw IllegalStateException("Image URI is null")
-            //viewModel.mathModelLiveData.value = selectedImageUri.toString()
+            viewModel.mathModelLiveData.value = selectedImageUri
 
             Log.d("MATH MODEL 1", selectedImageUri.toString() )
             // Теперь у вас есть URI выбранного изображения, который вы можете использовать дальше.

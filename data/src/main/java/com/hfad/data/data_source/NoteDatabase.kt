@@ -6,7 +6,7 @@ import com.hfad.domain.models.Note
 
 @Database(
     entities = [Note::class],
-    version = 1
+    version = 3
 )
 
 abstract class NoteDatabase : RoomDatabase(){

@@ -81,4 +81,5 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$arch_version")
 
     implementation("com.squareup.picasso:picasso:2.8")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }

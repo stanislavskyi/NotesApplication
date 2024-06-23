@@ -1,6 +1,7 @@
 package com.hfad.notesapplication.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.hfad.data.data_source.NoteDatabase
+import com.hfad.domain.usecases.GetNotesUseCase
 import com.hfad.notesapplication.R
 import com.hfad.notesapplication.presentation.adapters.NoteAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,6 +40,7 @@ class MainActivity : AppCompatActivity(), NoteFragment.OnEditingFinishedListener
         lifecycleScope.launch {
             mainViewModel.notes.collect{
                 noteAdapter.submitList(it)
+                Log.d("MATH MODEL", it.toString())
             }
         }
 
